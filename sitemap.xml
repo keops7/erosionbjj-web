@@ -50,4 +50,9 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://erosionbjj.netlify.app/noticias/mackenzie-dern-revalida-titulo-ufc-330/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
