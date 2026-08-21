@@ -55,4 +55,9 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://erosionbjj.netlify.app/noticias/andrew-tackett-cuarta-defensa-titulo-ufc-bjj-10/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
