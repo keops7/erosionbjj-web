@@ -60,4 +60,9 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://erosionbjj.netlify.app/noticias/brown-belt-reduce-agresor-supermercado-reino-unido/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
