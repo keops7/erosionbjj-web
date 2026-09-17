@@ -26,6 +26,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://erosionbjj.netlify.app/noticias/joslyn-molina-medalla-historica-adcc-2026/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://erosionbjj.netlify.app/noticias/felipe-pena-bicampeon-absoluto-adcc-2026/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
