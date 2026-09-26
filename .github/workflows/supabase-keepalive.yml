@@ -1,0 +1,25 @@
+# Evita que el plan gratuito de Supabase pause el proyecto por inactividad
+# (pausa tras ~7 días sin peticiones). Hace una consulta a la API cada ~4 días.
+# La URL y la clave pública se leen de index.html, así que no hay secretos que mantener.
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "17 6 */4 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Consulta a la API de Supabase
+        run: |
+          URL=$(grep -o '"url":"https://[a-z0-9]*\.supabase\.co"' index.html | head -1 | sed 's/"url":"//; s/"$//')
+          KEY=$(grep -o '"anonKey":"[^"]*"' index.html | head -1 | sed 's/"anonKey":"//; s/"$//')
+          test -n "$URL" && test -n "$KEY" || { echo "No se encontró la config de Supabase en index.html"; exit 1; }
+          curl --fail --silent --show-error --max-time 30 \
+            "$URL/rest/v1/erosion_videos?select=id&limit=1" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY"
+          echo
+          echo "Supabase responde OK"
