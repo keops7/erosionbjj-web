@@ -150,18 +150,37 @@
           .join("");
       }
 
+      // El reproductor de Drive no se puede pausar desde fuera: para parar un vídeo se destruye su iframe.
+      function cerrarVideo(item) {
+        item.open = false;
+        item.querySelector(".video-embed").innerHTML = "";
+      }
+
       grid.addEventListener(
         "toggle",
         function (ev) {
           var d = ev.target;
-          if (!d.classList || !d.classList.contains("vid-item") || !d.open) return;
-          var caja = d.querySelector(".video-embed");
-          if (caja.firstChild) return;
-          var f = document.createElement("iframe");
-          f.src = "https://drive.google.com/file/d/" + encodeURIComponent(d.getAttribute("data-id")) + "/preview";
-          f.allow = "autoplay";
-          f.title = d.querySelector("summary").textContent;
-          caja.appendChild(f);
+          if (!d.classList) return;
+          if (d.classList.contains("vid-item")) {
+            var caja = d.querySelector(".video-embed");
+            if (!d.open) {
+              caja.innerHTML = ""; // se ha minimizado: parar
+              return;
+            }
+            // Solo un vídeo a la vez: al abrir uno, se cierran (y paran) los demás.
+            grid.querySelectorAll(".vid-item[open]").forEach(function (o) {
+              if (o !== d) cerrarVideo(o);
+            });
+            if (caja.firstChild) return;
+            var f = document.createElement("iframe");
+            f.src = "https://drive.google.com/file/d/" + encodeURIComponent(d.getAttribute("data-id")) + "/preview";
+            f.allow = "autoplay";
+            f.title = d.querySelector("summary").textContent;
+            caja.appendChild(f);
+          } else if (d.classList.contains("vid-curso") || d.classList.contains("vid-autor")) {
+            // Abrir o cerrar otro autor/curso también para el vídeo en marcha.
+            grid.querySelectorAll(".vid-item[open]").forEach(cerrarVideo);
+          }
         },
         true
       );
