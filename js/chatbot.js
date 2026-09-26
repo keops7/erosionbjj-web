@@ -72,7 +72,7 @@
 
   // ---------- Formulario de inscripción (Web3Forms, sin backend) ----------
   // Cada envío llega por email al propietario de la access key (pública por diseño).
-  var WEB3FORMS_KEY = "PENDIENTE_ACCESS_KEY";
+  var WEB3FORMS_KEY = "48a2aa7f-3257-40a1-ac68-02bc741d1e3e";
 
   function mostrarFormulario() {
     var envoltorio = document.createElement("div");
