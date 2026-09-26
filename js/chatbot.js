@@ -70,9 +70,9 @@
     { id: "contacto", texto: "Contacto", responder: respuestaContacto },
   ];
 
-  // ---------- Formulario de inscripción (Netlify Forms, sin backend) ----------
-  // Envía por fetch al formulario estático "apuntarme" que existe oculto en
-  // el HTML (build/build.js) para que Netlify lo detecte y lo procese.
+  // ---------- Formulario de inscripción (Web3Forms, sin backend) ----------
+  // Cada envío llega por email al propietario de la access key (pública por diseño).
+  var WEB3FORMS_KEY = "PENDIENTE_ACCESS_KEY";
 
   function mostrarFormulario() {
     var envoltorio = document.createElement("div");
@@ -95,21 +95,26 @@
       boton.disabled = true;
       boton.textContent = "Enviando…";
 
-      var datosForm = new FormData(form);
-      datosForm.append("form-name", "apuntarme");
-      var body_ = new URLSearchParams();
-      datosForm.forEach(function (valor, clave) {
-        body_.append(clave, valor);
+      var carga = {
+        access_key: WEB3FORMS_KEY,
+        subject: "Nuevo contacto desde la web de Erosión Jiu Jitsu",
+        from_name: "Web Erosión Jiu Jitsu",
+      };
+      new FormData(form).forEach(function (valor, clave) {
+        carga[clave] = valor;
       });
 
-      fetch("/", {
+      fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body_.toString(),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(carga),
       })
         .then(function (r) {
+          return r.json();
+        })
+        .then(function (res) {
           envoltorio.remove();
-          if (r.ok) {
+          if (res && res.success) {
             mensaje("Hemos recibido tus datos. Te contactaremos en breve para concretar día y horario.");
           } else {
             throw new Error("respuesta no ok");
