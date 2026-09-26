@@ -83,15 +83,91 @@
         });
       });
 
-      sb.from("erosion_videos")
-        .select("titulo,descripcion,drive_id")
-        .order("orden", { ascending: true })
-        .then(function (r) {
-          if (r.error) {
-            estado.textContent = "No hemos podido cargar los vídeos. Inténtalo de nuevo en unos minutos.";
-            return;
+      // Supabase devuelve como máximo 1.000 filas por consulta: se pide por tramos.
+      function cargarTodos() {
+        var filas = [];
+        function pagina(desde) {
+          return sb
+            .from("erosion_videos")
+            .select("autor,curso,titulo,drive_id,orden")
+            .order("autor", { ascending: true })
+            .order("curso", { ascending: true })
+            .order("orden", { ascending: true })
+            .range(desde, desde + 999)
+            .then(function (r) {
+              if (r.error) throw r.error;
+              var datos = r.data || [];
+              filas = filas.concat(datos);
+              return datos.length === 1000 ? pagina(desde + 1000) : filas;
+            });
+        }
+        return pagina(0);
+      }
+
+      // Árbol autor > curso > vídeo con <details>; el reproductor se crea al abrir cada vídeo.
+      function pintar(videos) {
+        var autores = {};
+        var ordenAutores = [];
+        videos.forEach(function (v) {
+          var a = autores[v.autor];
+          if (!a) {
+            a = autores[v.autor] = { cursos: {}, orden: [], total: 0 };
+            ordenAutores.push(v.autor);
           }
-          var videos = r.data || [];
+          var c = a.cursos[v.curso];
+          if (!c) {
+            c = a.cursos[v.curso] = [];
+            a.orden.push(v.curso);
+          }
+          c.push(v);
+          a.total++;
+        });
+        grid.innerHTML = ordenAutores
+          .map(function (nombre) {
+            var a = autores[nombre];
+            return (
+              '<details class="vid-autor"><summary>' + esc(nombre) + " <span>" + a.total + "</span></summary>" +
+              a.orden
+                .map(function (cn) {
+                  var lista = a.cursos[cn];
+                  return (
+                    '<details class="vid-curso"><summary>' + esc(cn) + " <span>" + lista.length + "</span></summary><ul>" +
+                    lista
+                      .map(function (v) {
+                        return (
+                          '<li><details class="vid-item" data-id="' + esc(v.drive_id) + '"><summary>' +
+                          esc(v.titulo) + '</summary><div class="video-embed"></div></details></li>'
+                        );
+                      })
+                      .join("") +
+                    "</ul></details>"
+                  );
+                })
+                .join("") +
+              "</details>"
+            );
+          })
+          .join("");
+      }
+
+      grid.addEventListener(
+        "toggle",
+        function (ev) {
+          var d = ev.target;
+          if (!d.classList || !d.classList.contains("vid-item") || !d.open) return;
+          var caja = d.querySelector(".video-embed");
+          if (caja.firstChild) return;
+          var f = document.createElement("iframe");
+          f.src = "https://drive.google.com/file/d/" + encodeURIComponent(d.getAttribute("data-id")) + "/preview";
+          f.allow = "autoplay";
+          f.title = d.querySelector("summary").textContent;
+          caja.appendChild(f);
+        },
+        true
+      );
+
+      cargarTodos().then(
+        function (videos) {
           if (!videos.length) {
             // Sin filas: o todavía no hay vídeos, o la cuenta no está dada de alta como alumno.
             estado.textContent =
@@ -99,25 +175,13 @@
             return;
           }
           estado.classList.add("oculto");
-          grid.innerHTML = videos
-            .map(function (v) {
-              return (
-                '<div class="video-card">' +
-                '<div class="video-embed"><iframe src="https://drive.google.com/file/d/' +
-                encodeURIComponent(v.drive_id) +
-                '/preview" allow="autoplay" loading="lazy" title="' +
-                esc(v.titulo) +
-                '"></iframe></div>' +
-                "<h3>" +
-                esc(v.titulo) +
-                "</h3>" +
-                (v.descripcion ? "<p>" + esc(v.descripcion) + "</p>" : "") +
-                "</div>"
-              );
-            })
-            .join("");
-          grid.classList.add("visible");
-        });
+          pintar(videos);
+          grid.classList.add("visible", "videos-arbol");
+        },
+        function () {
+          estado.textContent = "No hemos podido cargar los vídeos. Inténtalo de nuevo en unos minutos.";
+        }
+      );
     });
   }
 })();

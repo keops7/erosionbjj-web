@@ -931,6 +931,68 @@ footer.site-footer {
   margin: 0;
 }
 
+/* Árbol autor > curso > vídeo */
+.videos-grid.visible.videos-arbol {
+  display: block;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.videos-arbol details { font-family: var(--fuente-institucional); }
+
+.videos-arbol summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.videos-arbol summary::-webkit-details-marker { display: none; }
+
+.videos-arbol summary span {
+  font-size: 0.8rem;
+  color: var(--color-gris);
+  font-weight: 400;
+}
+
+.videos-arbol summary::before {
+  content: "▸";
+  color: var(--color-azul);
+  margin-right: 8px;
+  transition: transform 0.15s;
+}
+
+.videos-arbol details[open] > summary::before { transform: rotate(90deg); }
+
+.videos-arbol summary > span { margin-left: auto; }
+
+.vid-autor { border-bottom: 1px solid var(--color-linea); }
+
+.vid-autor > summary {
+  padding: 16px 4px;
+  font-family: var(--fuente-logotipo);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+}
+
+.vid-curso { margin: 0 0 4px 18px; border-left: 2px solid var(--color-linea); padding-left: 14px; }
+
+.vid-curso > summary { padding: 10px 4px; font-weight: 600; }
+
+.vid-curso > ul { list-style: none; margin: 0 0 12px; padding: 0; }
+
+.vid-item > summary {
+  padding: 7px 4px;
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.vid-item > summary:hover { color: var(--color-azul); }
+
+.vid-item .video-embed { margin: 6px 0 18px; }
+
 .videos-salir {
   text-align: center;
   margin-top: 48px;
