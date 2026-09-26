@@ -99,20 +99,6 @@
     </div>
   </footer>
 
-  <!-- Formulario estático oculto: solo sirve para que Netlify lo detecte y
-       registre en el build (su parser de formularios lee el HTML generado,
-       no lo que se crea luego con JavaScript). El formulario real que ve
-       el usuario lo pinta el chatbot y envía los datos a este mismo
-       formulario ("apuntarme") por fetch. -->
-  <form name="apuntarme" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="apuntarme" />
-    <input name="bot-field" />
-    <input type="text" name="nombre" />
-    <input type="email" name="email" />
-    <input type="tel" name="telefono" />
-    <textarea name="mensaje"></textarea>
-  </form>
-
   <script>
     (function () {
       var toggle = document.getElementById('nav-toggle');
