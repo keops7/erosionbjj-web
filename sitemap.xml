@@ -26,6 +26,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/ufc-bjj-11-musumeci-retiene-titulo-fowler-empate/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/joslyn-molina-medalla-historica-adcc-2026/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
