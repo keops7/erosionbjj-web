@@ -26,6 +26,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/windows-patrocinio-ruotolo-bjj-historico/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/ufc-bjj-12-cassia-moura-doble-campeona/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
