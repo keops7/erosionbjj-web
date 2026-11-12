@@ -26,6 +26,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/renzo-gracie-accionista-ujitsu/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/mica-galvao-campeon-crown-2026/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
