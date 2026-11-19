@@ -26,6 +26,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/ibjjf-nuevas-reglas-2027-foot-locks/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://erosionbjj-web.alexcruzkeops.workers.dev/noticias/renzo-gracie-accionista-ujitsu/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
