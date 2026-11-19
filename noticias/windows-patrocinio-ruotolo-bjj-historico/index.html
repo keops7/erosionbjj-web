@@ -29,16 +29,16 @@
   <header class="site-header">
     <div class="container nav">
       <a href="/" class="logo">
-        <img class="logo-wordmark" src="/img/logo/logo-erosion-negro.png" alt="Erosión Jiu Jitsu" />
+        <img class="logo-wordmark" src="/img/logo/logo-erosion-negro.webp" alt="Erosión Jiu Jitsu" width="480" height="74" decoding="async" />
       </a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <button class="nav-toggle" id="nav-toggle" popovertarget="nav-overlay" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <nav class="nav-overlay" id="nav-overlay">
-    <button class="nav-close" id="nav-close" aria-label="Cerrar menú">&times;</button>
+  <nav class="nav-overlay" id="nav-overlay" popover>
+    <button class="nav-close" id="nav-close" popovertarget="nav-overlay" popovertargetaction="hide" aria-label="Cerrar menú">&times;</button>
     <ul>
       <li><a href="/">Inicio</a></li>
           <li><a href="/noticias/" class="activo">Noticias</a></li>
@@ -55,7 +55,7 @@
       <div class="fecha">12 de octubre de 2026</div>
       <div class="etiquetas-noticia"><span class="etiqueta-belt cinturon-azul">Comunidad</span></div>
       <h1>Windows ficha a los gemelos Ruotolo en uno de los mayores patrocinios que ha visto el jiu-jitsu</h1>
-      <img class="portada" src="/img/noticias/tye-kade-ruotolo-windows-2026.jpg" alt="Tye Ruotolo posa con el cinturón de campeón de ONE Championship" />
+      <img class="portada" src="/img/noticias/tye-kade-ruotolo-windows-2026.webp" alt="Tye Ruotolo posa con el cinturón de campeón de ONE Championship" width="600" height="583" decoding="async" />
       <p class="credito-imagen" style="font-size:0.85em;color:#888;margin-top:-0.5em;">Imagen: <a href="https://www.onefc.com/athletes/tye-ruotolo/" target="_blank" rel="noopener">ONE Championship</a>.</p>
       <p>La marca Windows, de Microsoft, sorprendió a la comunidad del jiu-jitsu el pasado 2 de octubre al publicar en sus redes oficiales una colaboración con Kade y Tye Ruotolo, dos de los nombres más reconocibles del grappling moderno. La compañía compartió "Iron Sharpens Iron – Training and Surfing with Kade and Tye Ruotolo", un cortometraje de estilo documental que repasa los entrenamientos y aficiones de los gemelos, incluido el surf, y que volvió a emitirse el 5 de octubre en sus canales de Instagram, X y YouTube.</p>
       <p>El medio especializado BJJ Eastern Europe (BJJEE) recogió la noticia el pasado lunes y la calificó como "posiblemente uno de los mayores acuerdos de patrocinio que ha visto jamás el deporte del jiu-jitsu", apuntando a una cifra especulada de siete dígitos. Sin embargo, ni Microsoft ni los gemelos han confirmado públicamente contrato, plazos o cantidad económica alguna, por lo que ese importe sigue siendo una estimación no verificada que circula entre medios del sector.</p>
@@ -72,8 +72,8 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo">
-          <img class="emblema" src="/img/logo/emblema-blanco.png" alt="" />
-          <img class="wordmark" src="/img/logo/logo-erosion-blanco.png" alt="Erosión Jiu Jitsu" />
+          <img class="emblema" src="/img/logo/emblema-blanco.webp" alt="" width="262" height="216" decoding="async" />
+          <img class="wordmark" src="/img/logo/logo-erosion-blanco.webp" alt="Erosión Jiu Jitsu" width="840" height="130" decoding="async" />
         </div>
         <div class="footer-social">
           <a href="tel:+34624667306" target="_blank" rel="noopener" aria-label="telefono"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8z"/></svg></a>
@@ -115,26 +115,11 @@
   </footer>
 
   <script>
-    (function () {
-      var toggle = document.getElementById('nav-toggle');
-      var close = document.getElementById('nav-close');
-      var overlay = document.getElementById('nav-overlay');
-      function abrir() {
-        overlay.classList.add('abierto');
-        document.body.classList.add('menu-abierto');
-        toggle.setAttribute('aria-expanded', 'true');
-      }
-      function cerrar() {
-        overlay.classList.remove('abierto');
-        document.body.classList.remove('menu-abierto');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-      toggle.addEventListener('click', abrir);
-      close.addEventListener('click', cerrar);
-      overlay.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', cerrar);
-      });
-    })();
+    // Menú con Popover API: abrir, cerrar, Escape y tocar fuera los gestiona el navegador.
+    // Solo hace falta cerrarlo al pulsar un enlace (por si apunta a la misma página).
+    document.querySelectorAll('#nav-overlay a').forEach(function (a) {
+      a.addEventListener('click', function () { document.getElementById('nav-overlay').hidePopover(); });
+    });
   </script>
   <script>window.EROSION_DATOS = {"nombre":"Erosión Jiu Jitsu","telefono":"+34 624 66 73 06","telHref":"tel:+34624667306","email":"info@erosionbjj.com","direccion":"Av. de Carlos III, 133, 04720 Aguadulce, Almería","mapaHref":"https://maps.google.com/maps?q=Av.%20de%20Carlos%20III%2C%20133%2C%2004720%20Aguadulce%2C%20Almer%C3%ADa","instagram":"https://www.instagram.com/erosionjiujitsu","whatsapp":"","niveles":["Programa Base","Intermedio","Juvenil (11-14 años)","Kids (7-10 años)"],"tarifas":{"_nota":"Precio genérico único por franja de edad, cuota mensual, sin límite de clases.","adultos":"80€/mes","ninos":"60€/mes","condiciones":"Sin límite de clases"}};</script>
   <script src="/js/chatbot.js" defer></script>
