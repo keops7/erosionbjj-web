@@ -236,17 +236,4 @@
   });
   cerrar.addEventListener("click", cerrarPanel);
 
-  // Cualquier enlace con data-apuntarme abre el asistente directamente en el formulario.
-  document.addEventListener("click", function (ev) {
-    var a = ev.target.closest && ev.target.closest("[data-apuntarme]");
-    if (!a) return;
-    ev.preventDefault();
-    body.innerHTML = "";
-    mensaje("¿Cómo me apunto?", "user");
-    mensaje(
-      "Déjanos tus datos y te contactamos para concretar día y horario. Cuando quieras, vienes, pruebas y decides con calma: aquí no hay prisa."
-    );
-    mostrarFormulario();
-    abrirPanel();
-  });
 })();
