@@ -16,7 +16,7 @@
   function respuestaHorarios() {
     var niveles = datos.niveles && datos.niveles.length ? datos.niveles.join(", ") : "varios niveles";
     return (
-      "Tenemos clases de lunes a viernes en estos niveles: " +
+      "Tenemos clases de lunes a sábado en estos niveles: " +
       niveles +
       ". El cuadrante completo, con días y horas, está en " +
       '<a href="/horarios/">Horarios</a>. Si quieres, puedes venir a probar una clase cuando te encaje.'
@@ -41,13 +41,14 @@
         " y te las confirmamos."
       );
     }
-    var notaAdultos = datos.tarifas.condiciones
-      ? "<small>" + datos.tarifas.condiciones + "</small>"
-      : "";
+    var t = datos.tarifas;
     return (
+      "Tarifa única para todos los niveles y edades:" +
       '<ul class="eb-lista-datos">' +
-      "<li><span>Adultos</span><span>" + datos.tarifas.adultos + notaAdultos + "</span></li>" +
-      "<li><span>Niños</span><span>" + datos.tarifas.ninos + "</span></li>" +
+      "<li><span>Cuota mensual</span><span>" + t.mensual + "</span></li>" +
+      "<li><span>Day pass</span><span>" + t.dayPass + "</span></li>" +
+      "<li><span>Bono 5 clases</span><span>" + t.bono5 + "</span></li>" +
+      "<li><span>Bono 10 clases</span><span>" + t.bono10 + "</span></li>" +
       "</ul>"
     );
   }
@@ -234,4 +235,18 @@
     else abrirPanel();
   });
   cerrar.addEventListener("click", cerrarPanel);
+
+  // Cualquier enlace con data-apuntarme abre el asistente directamente en el formulario.
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest("[data-apuntarme]");
+    if (!a) return;
+    ev.preventDefault();
+    body.innerHTML = "";
+    mensaje("¿Cómo me apunto?", "user");
+    mensaje(
+      "Déjanos tus datos y te contactamos para concretar día y horario. Cuando quieras, vienes, pruebas y decides con calma: aquí no hay prisa."
+    );
+    mostrarFormulario();
+    abrirPanel();
+  });
 })();
